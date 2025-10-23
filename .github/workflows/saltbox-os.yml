@@ -36,11 +36,58 @@ jobs:
           echo "matrix={\"roles\":[$ROLES],\"os\":[\"20.04\",\"22.04\",\"24.04\"]}" >> $GITHUB_OUTPUT
 
   install:
-    name: '${{ matrix.roles }}-${{ matrix.os }}'
-    runs-on: ubuntu-${{ matrix.os }}
+    name: '${{ matrix.roles }}-${{ matrix.os }}-${{ matrix.arch }}'
+    runs-on: ${{ matrix.runner }}
     needs: [ansible-lint, find-roles]
     strategy:
-      matrix: ${{ fromJson(needs.find-roles.outputs.matrix) }}
+      matrix:
+        arch: [amd64, arm64]
+        os: ["20.04", "22.04", "24.04"]
+        runner: 
+          - ubuntu-20.04
+          - ubuntu-22.04
+          - ubuntu-24.04
+          - ubuntu-20.04-arm
+          - ubuntu-22.04-arm
+          - ubuntu-24.04-arm
+        exclude:
+          - arch: amd64
+            runner: ubuntu-20.04-arm
+          - arch: amd64
+            runner: ubuntu-22.04-arm
+          - arch: amd64
+            runner: ubuntu-24.04-arm
+          - arch: arm64
+            runner: ubuntu-20.04
+          - arch: arm64
+            runner: ubuntu-22.04
+          - arch: arm64
+            runner: ubuntu-24.04
+          - os: "20.04"
+            runner: ubuntu-22.04
+          - os: "20.04"
+            runner: ubuntu-24.04
+          - os: "20.04"
+            runner: ubuntu-22.04-arm
+          - os: "20.04"
+            runner: ubuntu-24.04-arm
+          - os: "22.04"
+            runner: ubuntu-20.04
+          - os: "22.04"
+            runner: ubuntu-24.04
+          - os: "22.04"
+            runner: ubuntu-20.04-arm
+          - os: "22.04"
+            runner: ubuntu-24.04-arm
+          - os: "24.04"
+            runner: ubuntu-20.04
+          - os: "24.04"
+            runner: ubuntu-22.04
+          - os: "24.04"
+            runner: ubuntu-20.04-arm
+          - os: "24.04"
+            runner: ubuntu-22.04-arm
+        roles: ${{ fromJson(needs.find-roles.outputs.matrix).roles }}
       fail-fast: false
     steps:
       - uses: actions/checkout@v5

@@ -8,7 +8,7 @@
 #########################################################################
 ---
 - name: Nvidia Tasks
-  when: (nvidia_driver_version | lower != 'ignore')
+  when: (nvidia_driver_version | lower != 'ignore') and (system_arch == 'x86_64')
   block:
     - name: Install mokutil
       ansible.builtin.apt:

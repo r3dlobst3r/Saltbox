@@ -31,7 +31,7 @@
     - name: Get latest transfer URL
       ansible.builtin.shell: >-
           curl -s {{ svm }}https://api.github.com/repos/l3uddz/transfer/releases/latest |
-          jq -r ".assets[] | select(.name | test(\"transfer_v[0-9].[0-9].[0-9]_linux_amd64\")) | .browser_download_url"
+          jq -r ".assets[] | select(.name | test(\"transfer_v[0-9].[0-9].[0-9]_linux_{{ system_arch_alt }}\")) | .browser_download_url"
       args:
         executable: /bin/bash
       register: transfer_download_url
@@ -39,7 +39,7 @@
 
     - name: Install transfer
       ansible.builtin.get_url:
-        url: "{{ transfer_download_url.stdout | default('https://github.com/l3uddz/transfer/releases/download/v1.0.0/transfer_v1.0.0_linux_amd64', true) }}"
+        url: "{{ transfer_download_url.stdout | default('https://github.com/l3uddz/transfer/releases/download/v1.0.0/transfer_v1.0.0_linux_' + system_arch_alt, true) }}"
         dest: /usr/local/bin/transfer
         mode: "0775"
         owner: root

@@ -49,7 +49,7 @@
     mode: "0775"
 
 - name: Find Node Exporter tmp dir
-  ansible.builtin.shell: ls -d /tmp/node_exporter/node_exporter-*.linux-amd64
+  ansible.builtin.shell: ls -d /tmp/node_exporter/node_exporter-*.linux-{{ system_arch_alt }}
   register: node_exporter_tmp_dir
 
 - name: "Copy binary to {{ node_exporter_path }}/node_exporter"

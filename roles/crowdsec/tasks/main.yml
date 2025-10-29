@@ -27,7 +27,7 @@
 
 - name: Add 'crowdsec' APT list
   ansible.builtin.apt_repository:
-    repo: "deb [arch=amd64 signed-by=/etc/apt/keyrings/crowdsec.asc] https://packagecloud.io/crowdsec/crowdsec/any/ any main"
+    repo: "deb [arch={{ system_arch_debian }} signed-by=/etc/apt/keyrings/crowdsec.asc] https://packagecloud.io/crowdsec/crowdsec/any/ any main"
     filename: "crowdsec"
     state: present
     mode: "0644"

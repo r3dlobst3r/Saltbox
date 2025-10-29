@@ -95,6 +95,10 @@ use_nvidia: "{{ nvidia_enabled | bool }}"
 # System
 ################################
 
+system_arch: "{{ ansible_architecture }}"
+system_arch_debian: "{{ 'arm64' if ansible_architecture in ['aarch64', 'arm64'] else 'amd64' }}"
+system_arch_alt: "{{ 'arm64' if ansible_architecture in ['aarch64', 'arm64'] else 'amd64' }}"
+
 server_root_path: "/"
 
 server_appdata_path: "{{ server_root_path | regex_replace('\\/$', '') + '/opt' }}"

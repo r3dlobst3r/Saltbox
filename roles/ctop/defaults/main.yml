@@ -9,8 +9,8 @@
 ---
 ctop_download_url_lookup_command: |
   curl -s {{ svm }}https://api.github.com/repos/bcicen/ctop/releases/latest \
-      | jq -r ".assets[] | select(.name | test(\"linux-amd64\")) | .browser_download_url"
-ctop_download_url_backup: https://github.com/bcicen/ctop/releases/download/v0.7.3/ctop-0.7.3-linux-amd64
+      | jq -r ".assets[] | select(.name | test(\"linux-{{ system_arch_alt }}\")) | .browser_download_url"
+ctop_download_url_backup: https://github.com/bcicen/ctop/releases/download/v0.7.3/ctop-0.7.3-linux-{{ system_arch_alt }}
 
 ctop_binary_path: /usr/local/bin/ctop
 

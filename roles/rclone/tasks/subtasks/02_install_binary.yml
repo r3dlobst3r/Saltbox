@@ -27,7 +27,7 @@
     - "/home/{{ user.name }}/.config/rclone"
 
 - name: Install Binary | Cleanup rclone tmp path # noqa no-free-form
-  ansible.builtin.shell: rm -rf /tmp/rclone-*-linux-amd64
+  ansible.builtin.shell: rm -rf /tmp/rclone-*-linux-{{ system_arch_alt }}
   ignore_errors: true
 
 - name: Install Binary | Display rclone version being installed
@@ -67,7 +67,7 @@
       timeout: 60
 
 - name: Install Binary | Find rclone tmp dir
-  ansible.builtin.shell: ls -d /tmp/rclone-*-linux-amd64
+  ansible.builtin.shell: ls -d /tmp/rclone-*-linux-{{ system_arch_alt }}
   register: rclone_tmp_dir
 
 - name: Install Binary | Copy binary to /usr/bin/rclone

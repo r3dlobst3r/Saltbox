@@ -35,7 +35,7 @@ mergerfs_release_distribution: "{{ ansible_facts['distribution_release'] | lower
 
 mergerfs_release_lookup_command: |
   curl -s {{ mergerfs_releases_url }} \
-    | jq -r ".assets[] | select(.name | test(\"{{ ansible_facts['distribution'] | lower }}-{{ mergerfs_release_distribution }}_amd64\")) \
+    | jq -r ".assets[] | select(.name | test(\"{{ ansible_facts['distribution'] | lower }}-{{ mergerfs_release_distribution }}_{{ system_arch_debian }}\")) \
     | .browser_download_url"
 
 mergerfs_download_backup_version: 2.40.2
@@ -45,7 +45,7 @@ mergerfs_download_backup_url: "
   {{ mergerfs_download_backup_version }}/\
   mergerfs_{{ mergerfs_download_backup_version }}.\
   {{ ansible_facts['distribution'] | lower }}-\
-  {{ mergerfs_release_distribution }}_amd64.deb"
+  {{ mergerfs_release_distribution }}_{{ system_arch_debian }}.deb"
 
 mergerfs_mount_branches: "{{ local_mount_branch }}{{ _remotes_list }}"
 

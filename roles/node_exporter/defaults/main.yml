@@ -13,5 +13,5 @@ node_exporter_latest_releases_url: "{{ svm }}https://api.github.com/repos/promet
 
 node_exporter_latest_release_lookup_command: |
   curl -s {{ node_exporter_latest_releases_url }} \
-    | jq -r ".assets[] |select(.name | test(\"linux-amd64.tar.gz\")) \
+    | jq -r ".assets[] |select(.name | test(\"linux-{{ system_arch_alt }}.tar.gz\")) \
     | .browser_download_url"

@@ -1,0 +1,47 @@
+#########################################################################
+# Title:         Saltbox: Resources | Tasks | Cloudflare Tunnel |       #
+#                Add Route                                               #
+# Author(s):     salty                                                   #
+# URL:           https://github.com/saltyorg/Saltbox                     #
+# --                                                                    #
+#########################################################################
+#                   GNU General Public License v3.0                     #
+#########################################################################
+---
+- name: Resources | Tasks | Cloudflare Tunnel | Add Route | Set hostname
+  ansible.builtin.set_fact:
+    tunnel_hostname: "{{ (dns_record + '.' + dns_zone) if (dns_record | length > 0) else dns_zone }}"
+    tunnel_service_url: "http://{{ lookup('vars', role_name + '_docker_container', default=role_name) }}:{{ lookup('vars', role_name + '_web_port') }}"
+
+- name: Resources | Tasks | Cloudflare Tunnel | Add Route | Get tunnel metadata
+  ansible.builtin.set_fact:
+    tunnel_domain: "{{ cloudflared_tunnel_domain }}"
+
+- name: Resources | Tasks | Cloudflare Tunnel | Add Route | Add route to config
+  ansible.builtin.script:
+    cmd: "{{ role_path }}/../../cloudflared/files/manage_ingress.py {{ server_appdata_path }}/cloudflared/config.yml add {{ tunnel_hostname }} {{ tunnel_service_url }}"
+  register: ingress_result
+  changed_when: true
+
+- name: Resources | Tasks | Cloudflare Tunnel | Add Route | Restart cloudflared container
+  community.docker.docker_container:
+    name: cloudflared
+    state: started
+    restart: yes
+  ignore_errors: yes
+
+- name: Resources | Tasks | Cloudflare Tunnel | Add Route | Create DNS CNAME
+  community.general.cloudflare_dns:
+    account_api_token: "{{ cloudflare.api }}"
+    account_email: "{{ cloudflare.email }}"
+    zone: "{{ dns_zone }}"
+    state: present
+    type: CNAME
+    value: "{{ tunnel_domain }}"
+    record: "{{ dns_record }}"
+    proxied: yes
+  when: dns_record | length > 0
+
+- name: Resources | Tasks | Cloudflare Tunnel | Add Route | Debug
+  ansible.builtin.debug:
+    msg: "Cloudflare Tunnel route added: {{ tunnel_hostname }} -> {{ tunnel_service_url }}"

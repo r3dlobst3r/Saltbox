@@ -12,11 +12,62 @@
     msg: "Cloudflare Tunnel token is required. Please set reverse_proxy.tunnel.token in adv_settings.yml"
   when: (reverse_proxy.tunnel.token is not defined) or (reverse_proxy.tunnel.token | length == 0)
 
+- name: Extract tunnel metadata from token
+  ansible.builtin.shell: |
+    python3 -c "import base64, json; token='{{ reverse_proxy.tunnel.token }}'; decoded=json.loads(base64.b64decode(token.split('.')[1] + '=='));  print(decoded['t'])"
+  register: tunnel_id_result
+  changed_when: false
+  failed_when: tunnel_id_result.rc != 0
+
+- name: Set tunnel facts
+  ansible.builtin.set_fact:
+    cloudflared_tunnel_id: "{{ tunnel_id_result.stdout }}"
+    cloudflared_tunnel_domain: "{{ tunnel_id_result.stdout }}.cfargotunnel.com"
+    cacheable: yes
+
+- name: Get Cloudflare account ID
+  ansible.builtin.uri:
+    url: "https://api.cloudflare.com/client/v4/accounts"
+    method: GET
+    headers:
+      Authorization: "Bearer {{ cloudflare.api }}"
+      Content-Type: "application/json"
+    return_content: yes
+  register: cf_accounts_result
+  when: cloudflare.account_id is not defined or cloudflare.account_id | length == 0
+
+- name: Set Cloudflare account ID
+  ansible.builtin.set_fact:
+    cloudflare_account_id: "{{ cloudflare.account_id if (cloudflare.account_id is defined and cloudflare.account_id | length > 0) else cf_accounts_result.json.result[0].id }}"
+    cacheable: yes
+
 - name: Remove existing Docker container
   ansible.builtin.include_tasks: "{{ resources_tasks_path }}/docker/remove_docker_container.yml"
 
 - name: Create directories
   ansible.builtin.include_tasks: "{{ resources_tasks_path }}/directories/create_directories.yml"
+
+- name: Save tunnel token to credentials file
+  ansible.builtin.copy:
+    content: "{{ reverse_proxy.tunnel.token }}"
+    dest: "{{ cloudflared_paths_location }}/token"
+    owner: "{{ user.name }}"
+    group: "{{ user.name }}"
+    mode: "0600"
+
+- name: Create initial config.yml
+  ansible.builtin.copy:
+    content: |
+      tunnel: {{ cloudflared_tunnel_id }}
+      credentials-file: /etc/cloudflared/token
+
+      ingress:
+        - service: http_status:404
+    dest: "{{ cloudflared_paths_location }}/config.yml"
+    owner: "{{ user.name }}"
+    group: "{{ user.name }}"
+    mode: "0664"
+    force: no
 
 - name: Create Docker container
   ansible.builtin.include_tasks: "{{ resources_tasks_path }}/docker/create_docker_container.yml"

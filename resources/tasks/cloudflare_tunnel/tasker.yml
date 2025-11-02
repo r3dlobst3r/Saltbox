@@ -1,0 +1,16 @@
+#########################################################################
+# Title:         Saltbox: Resources | Tasks | Cloudflare Tunnel |       #
+#                Tasker                                                  #
+# Author(s):     salty                                                   #
+# URL:           https://github.com/saltyorg/Saltbox                     #
+# --                                                                    #
+#########################################################################
+#                   GNU General Public License v3.0                     #
+#########################################################################
+---
+- name: Resources | Tasks | Cloudflare Tunnel | Tasker | Add Route
+  ansible.builtin.include_tasks: "add_route.yml"
+  when:
+    - reverse_proxy.type == 'cloudflare-tunnel'
+    - not skip_dns
+    - cloudflare_tunnel_route_enabled | default(true)

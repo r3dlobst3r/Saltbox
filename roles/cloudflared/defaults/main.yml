@@ -1,0 +1,127 @@
+##########################################################################
+# Title:         Saltbox: Cloudflared | Default Variables               #
+# Author(s):     Cloudflare Tunnel Support for CGNAT                     #
+# URL:           https://github.com/saltyorg/Saltbox                     #
+# --                                                                     #
+##########################################################################
+#                   GNU General Public License v3.0                      #
+##########################################################################
+---
+################################
+# Basics
+################################
+
+cloudflared_name: cloudflared
+
+################################
+# Paths
+################################
+
+cloudflared_paths_folder: "{{ cloudflared_name }}"
+cloudflared_paths_location: "{{ server_appdata_path }}/{{ cloudflared_paths_folder }}"
+cloudflared_paths_config_location: "{{ cloudflared_paths_location }}/config.yml"
+cloudflared_paths_folders_list:
+  - "{{ cloudflared_paths_location }}"
+
+################################
+# DNS
+################################
+
+cloudflared_dns_record: "{{ cloudflared_name }}"
+cloudflared_dns_zone: "{{ user.domain }}"
+cloudflared_dns_proxy: "{{ dns.proxied }}"
+
+################################
+# Docker Container
+################################
+
+# Container
+cloudflared_docker_container: "{{ cloudflared_name }}"
+
+# Image
+cloudflared_docker_image_pull: true
+cloudflared_docker_image_tag: "latest"
+cloudflared_docker_image: "cloudflare/cloudflared:{{ cloudflared_docker_image_tag }}"
+
+# Ports
+cloudflared_docker_ports_defaults: []
+cloudflared_docker_ports_custom: []
+cloudflared_docker_ports: "{{ cloudflared_docker_ports_defaults
+                               + cloudflared_docker_ports_custom }}"
+
+# Envs
+cloudflared_docker_envs_default:
+  TZ: "{{ tz }}"
+  TUNNEL_TOKEN: "{{ reverse_proxy.tunnel.token }}"
+cloudflared_docker_envs_custom: {}
+cloudflared_docker_envs: "{{ cloudflared_docker_envs_default
+                             | combine(cloudflared_docker_envs_custom) }}"
+
+# Commands
+cloudflared_docker_commands_default:
+  - "tunnel"
+  - "--no-autoupdate"
+  - "run"
+cloudflared_docker_commands_custom: []
+cloudflared_docker_commands: "{{ cloudflared_docker_commands_default
+                                 + cloudflared_docker_commands_custom }}"
+
+# Volumes
+cloudflared_docker_volumes_default:
+  - "{{ cloudflared_paths_location }}:/etc/cloudflared"
+cloudflared_docker_volumes_custom: []
+cloudflared_docker_volumes: "{{ cloudflared_docker_volumes_default
+                                + cloudflared_docker_volumes_custom }}"
+
+# Devices
+cloudflared_docker_devices_default: []
+cloudflared_docker_devices_custom: []
+cloudflared_docker_devices: "{{ cloudflared_docker_devices_default
+                                + cloudflared_docker_devices_custom }}"
+
+# Hosts
+cloudflared_docker_hosts_default: {}
+cloudflared_docker_hosts_custom: {}
+cloudflared_docker_hosts: "{{ docker_hosts_common
+                              | combine(cloudflared_docker_hosts_default)
+                              | combine(cloudflared_docker_hosts_custom) }}"
+
+# Labels
+cloudflared_docker_labels_default:
+  com.github.saltbox.saltbox_managed: "true"
+cloudflared_docker_labels_custom: {}
+cloudflared_docker_labels: "{{ docker_labels_common
+                               | combine(cloudflared_docker_labels_default)
+                               | combine(cloudflared_docker_labels_custom) }}"
+
+# Hostname
+cloudflared_docker_hostname: "{{ cloudflared_name }}"
+
+# Networks
+cloudflared_docker_networks_alias: "{{ cloudflared_name }}"
+cloudflared_docker_networks_default: []
+cloudflared_docker_networks_custom: []
+cloudflared_docker_networks: "{{ docker_networks_common
+                                 + cloudflared_docker_networks_default
+                                 + cloudflared_docker_networks_custom }}"
+
+# Capabilities
+cloudflared_docker_capabilities_default: []
+cloudflared_docker_capabilities_custom: []
+cloudflared_docker_capabilities: "{{ cloudflared_docker_capabilities_default
+                                     + cloudflared_docker_capabilities_custom }}"
+
+# Security Opts
+cloudflared_docker_security_opts_default: []
+cloudflared_docker_security_opts_custom: []
+cloudflared_docker_security_opts: "{{ cloudflared_docker_security_opts_default
+                                      + cloudflared_docker_security_opts_custom }}"
+
+# Restart Policy
+cloudflared_docker_restart_policy: unless-stopped
+
+# State
+cloudflared_docker_state: started
+
+# User
+cloudflared_docker_user: "{{ uid }}:{{ gid }}"

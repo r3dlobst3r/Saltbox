@@ -35,7 +35,8 @@
     - { role: scripts, tags: ['core', 'saltbox', 'mediabox', 'feederbox', 'scripts'] }
     - { role: sandbox, tags: ['core', 'saltbox', 'mediabox', 'feederbox', 'sandbox'] }
     - { role: crowdsec, tags: ['core', 'saltbox', 'mediabox', 'feederbox', 'crowdsec'], when: ['crowdsec_is_enabled'] }
-    - { role: traefik, tags: ['core', 'saltbox', 'mediabox', 'feederbox', 'traefik', 'traefik-reset-certs'] }
+    - { role: traefik, tags: ['core', 'saltbox', 'mediabox', 'feederbox', 'traefik', 'traefik-reset-certs'], when: ["reverse_proxy.type == 'traefik'"] }
+    - { role: cloudflared, tags: ['core', 'saltbox', 'mediabox', 'feederbox', 'cloudflared'], when: ["reverse_proxy.type == 'cloudflare-tunnel'"] }
     - { role: cloudflare, tags: ['core', 'saltbox', 'mediabox', 'feederbox', 'cloudflare'], when: ['cloudflare_is_enabled'] }
     - { role: main_tags, tags: ['saltbox', 'mediabox', 'feederbox'] }
     # Apps Start

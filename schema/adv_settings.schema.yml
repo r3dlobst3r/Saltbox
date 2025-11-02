@@ -39,6 +39,21 @@ mounts:
       type: ansible_bool
       required: true
 
+reverse_proxy:
+  type: object
+  required: true
+  properties:
+    type:
+      type: string
+      required: true
+    tunnel:
+      type: object
+      required: true
+      properties:
+        token:
+          type: string
+          required: true
+
 system:
   type: object
   required: true

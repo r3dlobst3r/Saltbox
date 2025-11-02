@@ -9,6 +9,10 @@ gpu:
   intel: yes
 mounts:
   ipv4_only: no
+reverse_proxy:
+  type: traefik
+  tunnel:
+    token: ""
 system:
   timezone: auto
 traefik:

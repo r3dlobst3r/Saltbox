@@ -52,7 +52,6 @@ cloudflared_docker_ports: "{{ cloudflared_docker_ports_defaults
 # Envs
 cloudflared_docker_envs_default:
   TZ: "{{ tz }}"
-  TUNNEL_TOKEN: "{{ reverse_proxy.tunnel.token }}"
 cloudflared_docker_envs_custom: {}
 cloudflared_docker_envs: "{{ cloudflared_docker_envs_default
                              | combine(cloudflared_docker_envs_custom) }}"
@@ -60,7 +59,8 @@ cloudflared_docker_envs: "{{ cloudflared_docker_envs_default
 # Commands
 cloudflared_docker_commands_default:
   - "tunnel"
-  - "--no-autoupdate"
+  - "--config"
+  - "/etc/cloudflared/config.yml"
   - "run"
 cloudflared_docker_commands_custom: []
 cloudflared_docker_commands: "{{ cloudflared_docker_commands_default

@@ -9,4 +9,8 @@
 ---
 - name: Resources | Tasks | DNS | Tasker | Import
   ansible.builtin.include_tasks: "tasker2.yml"
-  when: cloudflare_records_enabled and role_dns_enabled and not skip_dns
+  when: cloudflare_records_enabled and role_dns_enabled and not skip_dns and reverse_proxy.type == 'traefik'
+
+- name: Resources | Tasks | DNS | Tasker | Cloudflare Tunnel
+  ansible.builtin.include_tasks: "{{ resources_tasks_path }}/cloudflare_tunnel/tasker.yml"
+  when: role_dns_enabled and not skip_dns and reverse_proxy.type == 'cloudflare-tunnel'

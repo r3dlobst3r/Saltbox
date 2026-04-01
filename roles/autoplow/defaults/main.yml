@@ -1,7 +1,7 @@
 ##########################################################################
 # Title:         Saltbox: Autoplow | Default Variables                   #
 # Author(s):     salty                                                   #
-# URL:           https://github.com/saltyorg/Saltbox                     #
+# URL:           https://github.com/r3dlobst3r/Saltbox                     #
 # --                                                                     #
 ##########################################################################
 #                   GNU General Public License v3.0                      #
@@ -38,7 +38,7 @@ autoplow_role_web_port: "{{ autoplow_port_lookup.meta.port }}"
 # GitHub
 ################################
 
-autoplow_latest_releases_url: "https://api.github.com/repos/saltyorg/autoplow/releases/latest"
+autoplow_latest_releases_url: "https://api.github.com/repos/r3dlobst3r/autoplow/releases/latest"
 
 ################################
 # Systemd

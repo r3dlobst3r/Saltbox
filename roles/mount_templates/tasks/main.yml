@@ -1,7 +1,7 @@
 #########################################################################
 # Title:         Saltbox: Mount Templates Role                          #
 # Author(s):     owine                                                  #
-# URL:           https://github.com/saltyorg/Saltbox                    #
+# URL:           https://github.com/r3dlobst3r/Saltbox                    #
 # --                                                                    #
 #########################################################################
 #                   GNU General Public License v3.0                     #
@@ -20,7 +20,7 @@
 
 - name: Clone mount-templates repo 'HEAD'
   ansible.builtin.git:
-    repo: https://github.com/saltyorg/mount-templates.git
+    repo: https://github.com/r3dlobst3r/mount-templates.git
     dest: "{{ server_appdata_path }}/mount-templates"
     clone: true
     version: HEAD
@@ -32,7 +32,7 @@
 
 - name: Clone mount-templates repo 'main'
   ansible.builtin.git:
-    repo: https://github.com/saltyorg/mount-templates.git
+    repo: https://github.com/r3dlobst3r/mount-templates.git
     dest: "{{ server_appdata_path }}/mount-templates"
     clone: true
     version: main

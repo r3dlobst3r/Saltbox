@@ -7,8 +7,8 @@ Before opening a new issue, please ensure:
 
 ## Bug Report
 
-Use https://github.com/saltyorg/Saltbox/issues/new?template=bug_report.md
+Use https://github.com/r3dlobst3r/Saltbox/issues/new?template=bug_report.md
 
 ## Feature Request
 
-Use https://github.com/saltyorg/Saltbox/issues/new?template=feature_request.md
+Use https://github.com/r3dlobst3r/Saltbox/issues/new?template=feature_request.md

@@ -1,7 +1,7 @@
 #########################################################################
 # Title:         Saltbox: Prometheus                                    #
 # Author(s):     salty                                                  #
-# URL:           https://github.com/saltyorg/Saltbox                    #
+# URL:           https://github.com/r3dlobst3r/Saltbox                    #
 # --                                                                    #
 #########################################################################
 #                   GNU General Public License v3.0                     #
@@ -10,10 +10,6 @@
 - name: "Execute Node Exporter role"
   ansible.builtin.include_role:
     name: "node_exporter"
-
-- name: "Execute cAdvisor role"
-  ansible.builtin.include_role:
-    name: "cadvisor"
 
 - name: Add DNS record
   ansible.builtin.include_tasks: "{{ resources_tasks_path }}/dns/tasker.yml"

@@ -1,7 +1,7 @@
 #########################################################################
 # Title:         Saltbox: Docker | Default Variables                    #
 # Author(s):     desimaniac                                             #
-# URL:           https://github.com/saltyorg/Saltbox                    #
+# URL:           https://github.com/r3dlobst3r/Saltbox                    #
 # --                                                                    #
 #########################################################################
 #                   GNU General Public License v3.0                     #
@@ -121,7 +121,7 @@ docker_daemon_template_force: true
 
 docker_controller_binary_path: "/usr/local/bin/sdc"
 
-docker_controller_releases_url: "https://api.github.com/repos/saltyorg/sdc/releases/latest"
+docker_controller_releases_url: "https://api.github.com/repos/r3dlobst3r/sdc/releases/latest"
 
 # Legacy
 docker_controller_venv_path: "/srv/docker-controller/venv"
@@ -132,7 +132,7 @@ docker_controller_venv_path: "/srv/docker-controller/venv"
 
 docker_dns_binary_path: "/usr/local/bin/sdhm"
 
-docker_dns_releases_url: "https://api.github.com/repos/saltyorg/sdhm/releases/latest"
+docker_dns_releases_url: "https://api.github.com/repos/r3dlobst3r/sdhm/releases/latest"
 
 docker_dns_ports_8190: "{{ port_lookup_8190.meta.port
                         if (port_lookup_8190.meta.port is defined) and (port_lookup_8190.meta.port | trim | length > 0)

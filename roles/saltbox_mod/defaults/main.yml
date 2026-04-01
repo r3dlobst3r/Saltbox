@@ -1,12 +1,12 @@
 #########################################################################
 # Title:         Saltbox: Saltbox_mod Role                              #
 # Author(s):     salty                                                  #
-# URL:           https://github.com/saltyorg/Saltbox                    #
+# URL:           https://github.com/r3dlobst3r/Saltbox                    #
 # --                                                                    #
 #########################################################################
 #                   GNU General Public License v3.0                     #
 #########################################################################
 ---
-saltbox_mod_repo: "https://github.com/saltyorg/saltbox_mod.git"
+saltbox_mod_repo: "https://github.com/r3dlobst3r/saltbox_mod.git"
 saltbox_mod_branch: "master"
 saltbox_mod_force_overwrite: false

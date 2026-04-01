@@ -1,8 +1,8 @@
 # Saltbox
 [![Discord](https://img.shields.io/discord/853755447970758686)](https://discord.gg/ugfKXpFND8)
 [![Docs:](https://img.shields.io/badge/docs-docs.saltbox.dev-blue)](https://docs.saltbox.dev)
-[![CI](https://github.com/saltyorg/Saltbox/actions/workflows/saltbox.yml/badge.svg)](https://github.com/saltyorg/Saltbox/actions/workflows/saltbox.yml)
-[![License:](https://img.shields.io/github/license/saltyorg/Saltbox)](LICENSE.md)
+[![CI](https://github.com/r3dlobst3r/Saltbox/actions/workflows/saltbox.yml/badge.svg)](https://github.com/r3dlobst3r/Saltbox/actions/workflows/saltbox.yml)
+[![License:](https://img.shields.io/github/license/r3dlobst3r/Saltbox)](LICENSE.md)
 
 
 Saltbox is an Ansible-based solution for rapidly deploying a Docker containerized cloud media server heavily based on [Cloudbox](https://github.com/Cloudbox/Cloudbox).

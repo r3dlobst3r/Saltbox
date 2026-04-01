@@ -63,7 +63,6 @@
     - { role: autoscan, tags: ['autoscan'] }
     - { role: bazarr, tags: ['bazarr'] }
     - { role: btrfsmaintenance, tags: ['btrfsmaintenance'] }
-    - { role: cadvisor, tags: ['cadvisor'] }
     - { role: ddclient, tags: ['ddclient'] }
     - { role: ddns, tags: ['ddns'] }
     - { role: deluge, tags: ['deluge'] }
@@ -83,9 +82,7 @@
     - { role: node_exporter, tags: ['node-exporter'] }
     - { role: nzbget, tags: ['nzbget'] }
     - { role: nzbhydra2, tags: ['nzbhydra2'] }
-    - { role: nzbthrottle, tags: ['nzbthrottle'] }
     - { role: overseerr, tags: ['overseerr'] }
-    - { role: petio, tags: ['petio'] }
     - { role: plex, tags: ['plex', 'plex-reset-codecs', 'plex-reclaim'] }
     - { role: plex_db, tags: ['plex-db'] }
     - { role: postgres, tags: ['postgres'] }

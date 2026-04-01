@@ -1,7 +1,7 @@
 ##########################################################################
 # Title:         Saltbox: Traefik | Default Variables                    #
 # Author(s):     RXWatcher, salty                                        #
-# URL:           https://github.com/saltyorg/Saltbox                     #
+# URL:           https://github.com/r3dlobst3r/Saltbox                     #
 # --                                                                     #
 ##########################################################################
 #                   GNU General Public License v3.0                      #
@@ -389,7 +389,7 @@ traefik_role_docker_commands_metrics:
   - "--metrics.prometheus.addserviceslabels=true"
   - "--metrics.prometheus.manualrouting=true"
 traefik_role_docker_commands_cloudflarewarp_plugin:
-  - "--experimental.plugins.cloudflarewarp.modulename=github.com/saltyorg/cloudflarewarp"
+  - "--experimental.plugins.cloudflarewarp.modulename=github.com/r3dlobst3r/cloudflarewarp"
   - "--experimental.plugins.cloudflarewarp.version=v1.0.0"
 traefik_role_docker_commands_themepark_plugin:
   - "--experimental.plugins.themepark.modulename=github.com/packruler/traefik-themepark"

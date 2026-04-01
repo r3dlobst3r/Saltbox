@@ -56,7 +56,7 @@
 - name: "Get URL for latest Autoplow release"
   ansible.builtin.set_fact:
     autoplow_latest_download_url: "{{ ((autoplow_latest_release_api.content | from_json).assets
-                                    | selectattr('name', 'search', 'linux.*amd64')
+                                    | selectattr('name', 'search', 'linux.*arm64')
                                     | map(attribute='browser_download_url')
                                     | first) }}"
   changed_when: false

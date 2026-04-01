@@ -21,7 +21,7 @@
 - name: Controller | Resolve sdc download URL
   ansible.builtin.set_fact:
     docker_controller_download_url: "{{ ((docker_controller_release_api.content | from_json).assets
-                                        | selectattr('name', 'equalto', 'sdc_linux_amd64')
+                                        | selectattr('name', 'equalto', 'sdc_linux_arm64')
                                         | map(attribute='browser_download_url')
                                         | first) }}"
   changed_when: false

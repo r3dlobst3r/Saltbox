@@ -16,7 +16,7 @@
 - name: Resolve ctop download URL
   ansible.builtin.set_fact:
     ctop_download_url_lookup: "{{ ((ctop_release_api.content | from_json).assets
-                                  | selectattr('name', 'search', 'linux-amd64')
+                                  | selectattr('name', 'search', 'linux-arm64')
                                   | map(attribute='browser_download_url')
                                   | first) }}"
   changed_when: false

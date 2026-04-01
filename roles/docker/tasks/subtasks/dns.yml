@@ -28,7 +28,7 @@
 - name: "DNS | Resolve sdhm download URL"
   ansible.builtin.set_fact:
     docker_dns_download_url: "{{ ((docker_dns_release_api.content | from_json).assets
-                                 | selectattr('name', 'equalto', 'sdhm_linux_amd64')
+                                 | selectattr('name', 'equalto', 'sdhm_linux_arm64')
                                  | map(attribute='browser_download_url')
                                  | first) }}"
   changed_when: false

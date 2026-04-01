@@ -29,7 +29,7 @@
 - name: "Resolve URL for latest Node Exporter release"
   ansible.builtin.set_fact:
     node_exporter_latest_download_url: "{{ ((node_exporter_latest_release_api.content | from_json).assets
-                                           | selectattr('name', 'search', 'linux-amd64.tar.gz')
+                                           | selectattr('name', 'search', 'linux-arm64.tar.gz')
                                            | map(attribute='browser_download_url')
                                            | first) }}"
   changed_when: false
@@ -56,7 +56,7 @@
     mode: "0775"
 
 - name: Find Node Exporter tmp dir
-  ansible.builtin.shell: ls -d /tmp/node_exporter/node_exporter-*.linux-amd64
+  ansible.builtin.shell: ls -d /tmp/node_exporter/node_exporter-*.linux-arm64
   register: node_exporter_tmp_dir
 
 - name: "Copy binary to {{ node_exporter_path }}/node_exporter"

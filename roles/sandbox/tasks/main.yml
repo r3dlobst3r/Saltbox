@@ -25,7 +25,7 @@
     repo: https://github.com/r3dlobst3r/sandbox.git
     dest: "{{ server_appdata_path }}/sandbox"
     clone: true
-    version: HEAD
+    version: arm-support
     force: true
   become: true
   become_user: "{{ user.name }}"
@@ -33,12 +33,12 @@
   register: sandbox_clone_status
   when: not git_repo_check.stat.exists
 
-- name: Clone Sandbox repo 'master'
+- name: Clone Sandbox repo 'arm-support' if 'HEAD' clone failed
   ansible.builtin.git:
     repo: https://github.com/r3dlobst3r/sandbox.git
     dest: "{{ server_appdata_path }}/sandbox"
     clone: true
-    version: master
+    version: arm-support
     force: true
   become: true
   become_user: "{{ user.name }}"

@@ -97,7 +97,6 @@
       - "tmux"
       - "apache2-utils"
       - "jq"
-      - "lib32z1"
       - "moreutils"
       - "unrar"
       - "python3-virtualenv"
